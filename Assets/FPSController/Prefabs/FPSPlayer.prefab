@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 9210579366318506674}
   - component: {fileID: 9210579366318506675}
   - component: {fileID: 9210579366318506676}
+  - component: {fileID: 1813292682605606854}
   m_Layer: 0
   m_Name: FPSPlayer
   m_TagString: Untagged
@@ -363,19 +364,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314134540d1be9b42b85e504f43aa993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptHolder: {fileID: 0}
-  Cam: {fileID: 9210579366826673608}
-  _playerId: 0
-  walkingSpeed: 7.5
-  runningSpeed: 11.5
-  jumpSpeed: 8
-  gravity: 20
-  playerCamera: {fileID: 9210579366826673605}
-  lookSpeed: 2
-  lookXLimit: 45
-  anim: {fileID: 0}
-  range: 5
-  canMove: 1
+  _gameManager: {fileID: 0}
+  _anim: {fileID: 0}
+  _playerCamera: {fileID: 9210579366826673605}
+  _pInput: {fileID: 0}
+  _canMove: 1
+  _playerId: 1
+  _walkingSpeed: 7.5
+  _runningSpeed: 11.5
+  _jumpSpeed: 8
+  _gravity: 20
+  _lookSpeed: 2
+  _lookXLimit: 45
+  _timeBeforeShot: 0
 --- !u!143 &9210579366318506676
 CharacterController:
   m_ObjectHideFlags: 0
@@ -394,6 +395,36 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1813292682605606854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9210579366318506677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: de53c5b10ef5fd548af3b510d1faa81b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 9210579366826673605}
 --- !u!1 &9210579366455209361
 GameObject:
   m_ObjectHideFlags: 0
