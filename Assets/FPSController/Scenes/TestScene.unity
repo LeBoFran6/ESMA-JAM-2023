@@ -507,7 +507,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cc043f19ae2b7cf479b7cceaa06da9ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -679,10 +679,16 @@ MonoBehaviour:
   ScriptHolderP2: {fileID: 147027248}
   P1Die: 0
   P2Die: 0
+  P1Score: 0
+  P2Score: 0
   P1: {fileID: 105303363}
   P2: {fileID: 147027248}
   SpawnP1: {fileID: 90263607}
   SpawnP2: {fileID: 1411179038}
+  timer: 0
+  timerOn: 0
+  Phase1: 1
+  Phase1PlaceHolder: {fileID: 1067205141}
 --- !u!4 &1089127026
 Transform:
   m_ObjectHideFlags: 0
