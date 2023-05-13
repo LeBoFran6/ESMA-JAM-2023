@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class SC_FPSController : MonoBehaviour
 {
-    public GameObject ScriptHolder;
+    public GameObject ScriptHolderP1;
+
+    public GameObject ScriptHolderP2;
 
     public GameObject Cam;
 
@@ -28,7 +30,7 @@ public class SC_FPSController : MonoBehaviour
 
     public float range = 5;
 
-    [HideInInspector]
+    
     public bool canMove = true;
 
     void Start()
@@ -64,14 +66,14 @@ public class SC_FPSController : MonoBehaviour
                 Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
                 if (hit.collider.CompareTag("P1")) // Vérifie si l'objet touché a le tag "Player"
                 {
-                    ScriptHolder.gameObject.GetComponent<BP_GameManager>().P1Die = true;
+                    ScriptHolderP1.gameObject.GetComponent<BP_GameManager>().P1Die = true;
                     //Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
                     Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
                 }
 
                 if (hit.collider.CompareTag("P2")) // Vérifie si l'objet touché a le tag "Player"
                 {
-                    ScriptHolder.gameObject.GetComponent<BP_GameManager>().P2Die = true;
+                    ScriptHolderP2.gameObject.GetComponent<BP_GameManager>().P2Die = true;
                     //Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
                     Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
                 }

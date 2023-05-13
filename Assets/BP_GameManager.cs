@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BP_GameManager : MonoBehaviour
 {
-    public GameObject ScriptHolder;
+    public GameObject ScriptHolderP1;
+    public GameObject ScriptHolderP2;
 
     public bool P1Die = false;
     public bool P2Die = false;
@@ -25,12 +26,16 @@ public class BP_GameManager : MonoBehaviour
     {
         if(P1Die == true) 
         {
+            ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
             P1.transform.position = SpawnP1.transform.position;
+            ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
             P1Die = false;
         }
         if (P2Die == true)
         {
+            ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
             P2.transform.position = SpawnP2.transform.position;
+            ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
             P2Die = false;
         }
     }
