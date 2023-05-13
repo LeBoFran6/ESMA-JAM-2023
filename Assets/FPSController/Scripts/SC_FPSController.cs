@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class SC_FPSController : MonoBehaviour
 {
+    public GameObject ScriptHolder;
+
+    public GameObject Cam;
+
     public int _playerId;
 
     public float walkingSpeed = 7.5f;
@@ -46,29 +50,49 @@ public class SC_FPSController : MonoBehaviour
 
         if (Input.GetButton("Fire1" + (_playerId == 0 ? "" : 2)))
         {
-            //anim.Play("ShootAnim");
-            print("Shooted");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Crée un rayon depuis la position de la souris
+            Vector3 characterPosition = Cam.transform.position;
+            Quaternion characterRotation = Cam.transform.rotation;
 
-            RaycastHit hit; // Variable pour stocker les informations de collision
+            // Crée un rayon depuis le centre du personnage orienté vers l'avant
+            Ray ray = new Ray(characterPosition, characterRotation * Vector3.forward);
+
+            RaycastHit hit;
+
 
             if (Physics.Raycast(ray, out hit)) // Effectue le raycast et vérifie s'il y a une collision
-            {              
-              
-                Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
-                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+            {
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
+                if (hit.collider.CompareTag("P1")) // Vérifie si l'objet touché a le tag "Player"
+                {
+                    ScriptHolder.gameObject.GetComponent<BP_GameManager>().P1Die = true;
+                    //Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
+                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+                }
+
+                if (hit.collider.CompareTag("P2")) // Vérifie si l'objet touché a le tag "Player"
+                {
+                    ScriptHolder.gameObject.GetComponent<BP_GameManager>().P2Die = true;
+                    //Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
+                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+                }
+
+               
             }
 
 
         }
 
+
+
+
+
+
+
+
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
-
-
-
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical" + (_playerId==0?"":2 )) : 0;
         float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal" + (_playerId == 0 ? "" : 2)) : 0;
@@ -98,10 +122,10 @@ public class SC_FPSController : MonoBehaviour
         // Player and Camera rotation
         if (canMove)
         {
-            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX += -Input.GetAxis("Mouse Y" + (_playerId == 0 ? "" : 2)) * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X" + (_playerId == 0 ? "" : 2)) * lookSpeed, 0);
         }
     }
 }
