@@ -14,6 +14,8 @@ public class TestingInputs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Scores.Instance.Testing();
+
         if (Input.GetAxis("Fire1")>0)
             Debug.Log(Input.GetAxis("Fire1"));
 
