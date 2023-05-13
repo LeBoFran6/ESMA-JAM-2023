@@ -226,15 +226,30 @@ public class BP_GameManager : MonoBehaviour
         //2
         if (Action2 == true && Phase1 == false)
         {
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G) && timerOn == false)
             {
                 ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
-                Action2 = false;
+                timerOn = true;
+                if(timer > 2) 
+                {
+                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = true;
+                    Action2 = false;
+                    timerOn = false;
+                    timer = 0;
+                }
+                
             }
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) && timerOn == false)
             {
                 ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
-                Action2 = false;
+                timerOn = true;
+                if (timer > 2)
+                {
+                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = true;
+                    Action2 = false;
+                    timerOn = false;
+                    timer = 0;
+                }
             }
         }
         
@@ -252,7 +267,7 @@ public class BP_GameManager : MonoBehaviour
 
     public void PhasePrep() 
     {
-        action = Random.Range(0, 2);
+        action = Random.Range(0, 3);
         if(action == 0) 
         {
             //killme.SetActive(true);
@@ -268,7 +283,7 @@ public class BP_GameManager : MonoBehaviour
 
             Action1 = true;
         }
-        if (action == 2)
+        if (action == 2 && action == 3)
         {
             //freeze.SetActive(true);
             _2L.SetActive(true);
