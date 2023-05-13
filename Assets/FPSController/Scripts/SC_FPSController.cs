@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class SC_FPSController : MonoBehaviour
 {
+    public int _playerId;
+
     public float walkingSpeed = 7.5f;
     public float runningSpeed = 11.5f;
     public float jumpSpeed = 8.0f;
@@ -14,15 +16,23 @@ public class SC_FPSController : MonoBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
+    public Animation anim;
+
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
+
+    public float range = 5;
 
     [HideInInspector]
     public bool canMove = true;
 
     void Start()
     {
+        anim = gameObject.GetComponent<Animation>();
+
+        //Vector3 direction = Vector3.forward;
+
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
@@ -32,17 +42,40 @@ public class SC_FPSController : MonoBehaviour
 
     void Update()
     {
+
+
+        if (Input.GetButton("Fire1" + (_playerId == 0 ? "" : 2)))
+        {
+            //anim.Play("ShootAnim");
+            print("Shooted");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Crée un rayon depuis la position de la souris
+
+            RaycastHit hit; // Variable pour stocker les informations de collision
+
+            if (Physics.Raycast(ray, out hit)) // Effectue le raycast et vérifie s'il y a une collision
+            {              
+              
+                Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+            }
+
+
+        }
+
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
+
+
+
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
+        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical" + (_playerId==0?"":2 )) : 0;
+        float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal" + (_playerId == 0 ? "" : 2)) : 0;
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        if (Input.GetButton("Jump" + (_playerId == 0 ? "" : 2)) && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpSpeed;
         }
