@@ -50,7 +50,7 @@ public class SC_FPSController : MonoBehaviour
     {
 
         
-        if (Input.GetButton("Fire1" + (_playerId == 0 ? "" : 2)) )
+        if (Input.GetAxis("Fire1" + (_playerId == 0 ? "" : 2)) > 0)
         {
             //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = Cam.transform.position;
