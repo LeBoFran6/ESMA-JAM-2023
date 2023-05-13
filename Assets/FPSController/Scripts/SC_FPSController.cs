@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class SC_FPSController : MonoBehaviour
 {
-    public GameObject ScriptHolderP1;
+    public GameObject ScriptHolder;
 
-    public GameObject ScriptHolderP2;
+    
 
     public GameObject Cam;
 
@@ -35,7 +35,7 @@ public class SC_FPSController : MonoBehaviour
 
     void Start()
     {
-        anim = gameObject.GetComponent<Animation>();
+        //anim = gameObject.GetComponent<Animation>();
 
         //Vector3 direction = Vector3.forward;
 
@@ -49,9 +49,10 @@ public class SC_FPSController : MonoBehaviour
     void Update()
     {
 
-
-        if (Input.GetButton("Fire1" + (_playerId == 0 ? "" : 2)))
+        
+        if (Input.GetButton("Fire1" + (_playerId == 0 ? "" : 2)) )
         {
+            //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = Cam.transform.position;
             Quaternion characterRotation = Cam.transform.rotation;
 
@@ -66,15 +67,15 @@ public class SC_FPSController : MonoBehaviour
                 Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
                 if (hit.collider.CompareTag("P1")) // Vérifie si l'objet touché a le tag "Player"
                 {
-                    ScriptHolderP1.gameObject.GetComponent<BP_GameManager>().P1Die = true;
-                    //Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
+                    ScriptHolder.gameObject.GetComponent<BP_GameManager>().P1Die = true;
+                    Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
                     Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
                 }
 
                 if (hit.collider.CompareTag("P2")) // Vérifie si l'objet touché a le tag "Player"
                 {
-                    ScriptHolderP2.gameObject.GetComponent<BP_GameManager>().P2Die = true;
-                    //Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
+                    ScriptHolder.gameObject.GetComponent<BP_GameManager>().P2Die = true;
+                    Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
                     Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
                 }
 
