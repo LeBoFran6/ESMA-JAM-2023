@@ -28,14 +28,14 @@ public class BP_GameManager : MonoBehaviour
         {
             ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
             P1.transform.position = SpawnP1.transform.position;
-            ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
+            ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = true;
             P1Die = false;
         }
         if (P2Die == true)
         {
             ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
             P2.transform.position = SpawnP2.transform.position;
-            ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
+            ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = true;
             P2Die = false;
         }
     }
