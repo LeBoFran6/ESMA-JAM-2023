@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -14,7 +13,8 @@ public class SC_FPSController : MonoBehaviour
     private Animation _anim;
     [SerializeField]
     private Camera _playerCamera;
-
+    [SerializeField]
+    private PlayerInput _pInput;
 
     [Header("Values")]
 
@@ -65,12 +65,12 @@ public class SC_FPSController : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = _canMove ? (isRunning ? _runningSpeed : _walkingSpeed) * Input.GetAxis("Vertical" + (_playerId==0?"":2 )) : 0;
-        float curSpeedY = _canMove ? (isRunning ? _runningSpeed : _walkingSpeed) * Input.GetAxis("Horizontal" + (_playerId == 0 ? "" : 2)) : 0;
+        float curSpeedX = _canMove ? (isRunning ? _runningSpeed : _walkingSpeed) * _pInput.actions["Move"].ReadValue<Vector2>().y : 0;
+        float curSpeedY = _canMove ? (isRunning ? _runningSpeed : _walkingSpeed) * _pInput.actions["Move"].ReadValue<Vector2>().x : 0;
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (Input.GetButton("Jump" + (_playerId == 0 ? "" : 2)) && _canMove && _characterController.isGrounded)
+        if (_pInput.actions["Jump"].WasPressedThisFrame() && _canMove && _characterController.isGrounded)
         {
             _moveDirection.y = _jumpSpeed;
         }
@@ -93,10 +93,11 @@ public class SC_FPSController : MonoBehaviour
         // Player and Camera rotation
         if (_canMove)
         {
-            _rotationX += -Input.GetAxis("Mouse Y" + (_playerId == 0 ? "" : 2)) * _lookSpeed;
+            float lookSpeedUpdated = _lookSpeed / 10;
+            _rotationX += -_pInput.actions["Look"].ReadValue<Vector2>().y * lookSpeedUpdated;
             _rotationX = Mathf.Clamp(_rotationX, -_lookXLimit, _lookXLimit);
             _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X" + (_playerId == 0 ? "" : 2)) * _lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, _pInput.actions["Look"].ReadValue<Vector2>().x * lookSpeedUpdated, 0);
         }
     }
 
@@ -104,7 +105,7 @@ public class SC_FPSController : MonoBehaviour
     {
         if (!_fireReady)
             return;
-        if (Input.GetAxis("Fire1" + (_playerId == 0 ? "" : 2)) > 0)
+        if (_pInput.actions["Fire"].WasPressedThisFrame())
         {
             //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = _playerCamera.transform.position;
