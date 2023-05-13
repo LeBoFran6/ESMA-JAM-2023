@@ -131,20 +131,20 @@ public class BP_GameManager : MonoBehaviour
 
             if(P1Die == true) 
             {
-                ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                 //ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
                 P1.transform.position = SpawnP1.transform.position;
                 //P2.transform.position = SpawnP2.transform.position;
                 timerOn = true;
                 if(timer > 1) 
                 {
-                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                     P2.transform.position = SpawnP2.transform.position;
                 }
                 if(timer > 2)
                 {
-                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = true;
-                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = true;
+                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = true;
+                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = true;
                     timerOn = false;
                     timer = 0;
                     P1Die = false;
@@ -164,19 +164,19 @@ public class BP_GameManager : MonoBehaviour
             if (P2Die == true)
             {
                 //ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
-                ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                 //P1.transform.position = SpawnP1.transform.position;
                 P2.transform.position = SpawnP2.transform.position;
                 timerOn = true;
                 if(timer > 1)
                 {
-                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                     P1.transform.position = SpawnP1.transform.position;
                 }
                 if (timer > 2)
                 {
-                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = true;
-                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = true;
+                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = true;
+                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = true;
                     timerOn = false;
                     timer = 0;
                     P1Die = false;
@@ -228,11 +228,11 @@ public class BP_GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G) && timerOn == false)
             {
-                ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                 timerOn = true;
                 if(timer > 2) 
                 {
-                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = true;
+                    ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = true;
                     Action2 = false;
                     timerOn = false;
                     timer = 0;
@@ -241,11 +241,11 @@ public class BP_GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.L) && timerOn == false)
             {
-                ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                 timerOn = true;
                 if (timer > 2)
                 {
-                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = true;
+                    ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = true;
                     Action2 = false;
                     timerOn = false;
                     timer = 0;
