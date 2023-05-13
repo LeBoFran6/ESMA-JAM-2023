@@ -13,7 +13,7 @@ public class UI_Audio_Manager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
-            //s.source.outputAudioMixerGroup = Sound.audioMixer;
+            s.source.outputAudioMixerGroup = s.AudioMixer;
         }
     }
 
