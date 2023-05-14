@@ -27,8 +27,8 @@ public class SliderManager : MonoBehaviour
         m_sfxSlider.value = m_sfxVolume;
 
         // J'inite la valeur de base du volume de la musique
-        m_musicSlider.value = 1f;
-        m_sfxSlider.value = 1f;
+        //m_musicSlider.value = 1f;
+        //m_sfxSlider.value = 1f;
     }
 
     private void Update()
