@@ -14,7 +14,7 @@ public class SliderManager : MonoBehaviour
     // la valeur maximale par defaut assignee
     private float m_musicVolume;
     private float m_sfxVolume;
-
+    
     private void Start()
     {
   
@@ -53,7 +53,7 @@ public class SliderManager : MonoBehaviour
     {
         m_sfxVolume = volume;
     }
-
+    
     // Les fonctions pour reset les valeurs
 
     public void VolumeReset()

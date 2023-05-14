@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BP_GameManager : MonoBehaviour
 {
-    public GameObject BarreDeChargement;
 
     public GameObject ScriptHolderP1;
     public GameObject ScriptHolderP2;
@@ -30,8 +30,8 @@ public class BP_GameManager : MonoBehaviour
 
 
     public bool Phase1 = true;
-    public GameObject Phase1PlaceHolder;
-
+    //public GameObject Phase1PlaceHolder;
+    public GameObject Phase2;
 
     //buttons
      public GameObject _0D;
@@ -48,7 +48,8 @@ public class BP_GameManager : MonoBehaviour
     public GameObject killHim;
     public GameObject jump;
     public GameObject freeze;
-
+    public GameObject lag;
+    public GameObject respawn;
 
 
     public bool Action0 = false;
@@ -64,7 +65,9 @@ public class BP_GameManager : MonoBehaviour
 
     public AudioSource zikPhase1;
     public AudioSource zikPhase2;
-
+    public AudioSource endPhase1;
+    
+    public Slider m_timerSlider;
     void Awake()
     {
         if (instance != null && instance != this)
@@ -82,8 +85,8 @@ public class BP_GameManager : MonoBehaviour
         _0J.SetActive(false);
         _1K.SetActive(false);
         _2L.SetActive(false);
-
-        Phase1PlaceHolder.SetActive(false);
+        
+        //Phase1PlaceHolder.SetActive(false);
         PhasePrep();
     }
 
@@ -94,21 +97,26 @@ public class BP_GameManager : MonoBehaviour
         {
             zikPhase1.volume = 0;
             zikPhase2.volume = 0.5f;
+            m_timerSlider.gameObject.SetActive(false);
+            Phase2.SetActive(true);
         }
         else
         {
             zikPhase1.volume = 0.5f;
             zikPhase2.volume = 0;
+            m_timerSlider.gameObject.SetActive(true);
+            Phase2.SetActive(false);
         }
 
         if (timerOn) 
         {
             timer = timer + 1 * Time.deltaTime;
+            m_timerSlider.value = timer;
         }
+        
         if (timer > 5) 
         {
-            
-            Phase1PlaceHolder.SetActive(true);
+            //Phase1PlaceHolder.SetActive(true);
             //GoP1.SetActive(true);
             //.SetActive(true);
 
@@ -129,15 +137,19 @@ public class BP_GameManager : MonoBehaviour
                 freeze.SetActive(true);
             }
 
-            BarreDeChargement.transform.localScale = BarreDeChargement.transform.localScale += new Vector3(0f,0f, 1f); 
+            //BarreDeChargement.transform.localScale = BarreDeChargement.transform.localScale += new Vector3(0f,0f, 1f); 
 
         }
-        if(timer > 8) 
+
+        if(timer > 16) 
         {
+            endPhase1.Play(); 
             killme.SetActive(false);
             killHim.SetActive(false);
             jump.SetActive(false);
             freeze.SetActive(false);
+            m_timerSlider.gameObject.SetActive(false);
+            Phase2.SetActive(true);
             //GoP1.SetActive(false);
             //GoP2.SetActive(false);
             timerOn = false;
@@ -164,6 +176,7 @@ public class BP_GameManager : MonoBehaviour
                     P2.GetComponent<CharacterController>().enabled = false;
                     P2.transform.position = SpawnP2.transform.position;
                     P2.GetComponent<CharacterController>().enabled = true;
+                    
                 }
                 if(timer > 2)
                 {
@@ -175,10 +188,9 @@ public class BP_GameManager : MonoBehaviour
                     P2Die = false;
                     timerOn = true;
                     Phase1 = true;
-                    Phase1PlaceHolder.SetActive(false);
+                    //Phase1PlaceHolder.SetActive(false);
                     Clean();
                     PhasePrep();
-
                 }
 
               
@@ -209,7 +221,7 @@ public class BP_GameManager : MonoBehaviour
                     P2Die = false;
                     timerOn = true;
                     Phase1 = true;
-                    Phase1PlaceHolder.SetActive(false);
+                    //Phase1PlaceHolder.SetActive(false);
                     Clean();
                     PhasePrep();
                 }
@@ -219,7 +231,7 @@ public class BP_GameManager : MonoBehaviour
            
         }
 
-        //0
+        //0 Instant Kill me
         if (Action0 == true && Phase1 == false)
         {
             if (Input.GetKeyDown(KeyCode.D))
@@ -234,7 +246,7 @@ public class BP_GameManager : MonoBehaviour
             }
         }
 
-        //1
+        // 1 Instant kill him 
         if (Action1 == true && Phase1 == false)
         {
             if (Input.GetKeyDown(KeyCode.F))
@@ -263,8 +275,8 @@ public class BP_GameManager : MonoBehaviour
                     timerOn = false;
                     timer = 0;
                 }
-                
             }
+            
             if (Input.GetKeyDown(KeyCode.L) && timerOn == false)
             {
                 ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
@@ -289,6 +301,7 @@ public class BP_GameManager : MonoBehaviour
         _1K.SetActive(false);
         _2L.SetActive(false);
         _2G.SetActive(false);
+
     }
 
     public void PhasePrep() 

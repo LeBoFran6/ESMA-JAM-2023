@@ -37,7 +37,7 @@ public class SC_FPSController : MonoBehaviour
     private float _lookSpeed = 2.0f;
     [SerializeField]
     private float _lookXLimit = 45.0f;
-    [SerializeField,Range(0.05f,3)]
+    [SerializeField,Range(0.5f,3)]
     private float _timeBeforeShot;
 
     [SerializeField, Range(0.1f, 3)]

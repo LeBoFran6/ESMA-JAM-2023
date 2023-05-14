@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 1539bdaab45c65a44af223381e4e4c22
   - enabled: 1
-    path: Assets/_DLNK/Reaper MachineGun/Source/Textures/GAME_Scene.unity
+    path: Assets/Scenes/GAME_Scene.unity
     guid: 5971a262dcd9d854e8424c161451c0d1
   m_configObjects: {}

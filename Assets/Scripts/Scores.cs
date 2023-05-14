@@ -15,6 +15,8 @@ public class Scores : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _txtTimer;
 
+    private BP_GameManager _gameManager;
+    
     public GameObject Win;
     public GameObject Win2;
     public GameObject Loose;
@@ -32,6 +34,7 @@ public class Scores : MonoBehaviour
     private float _setTime;
 
     private float _timer;
+    private bool _doOnce = true;
 
     private Scores() { }
 
@@ -47,22 +50,48 @@ public class Scores : MonoBehaviour
 
     private void Start()
     {
+        _gameManager = gameObject.GetComponent<BP_GameManager>();
         LaunchTimer();
+    }
+
+    private void Update()
+    {
+        Debug.Log(_gameManager.timerOn);
+        if (_doOnce)
+        {
+            if (_gameManager.m_timerSlider.gameObject)
+            {
+                StopAllCoroutines();
+                //_timer = 100;
+                //_txtTimer.text = "Phase 1";
+                LaunchTimer();
+                Debug.Log(_txtTimer.text);
+                _doOnce = false;
+            }
+            else
+            {
+                //_txtTimer.text = Math.Round(_timer, 1).ToString();
+                _doOnce = true;
+                Debug.Log(_txtTimer.text);
+            }
+        }
     }
 
     public void LaunchTimer()
     {
         _timer = _setTime;
+        _txtTimer.text = "Phase 1";
         StartCoroutine(DecreaseTimer());
     }
 
     private IEnumerator DecreaseTimer()
     {
+        yield return new WaitForSeconds(16);
         while (_timer >= 0)
         {
-            _timer -= 0.1f;
+            _timer -= 1;
             _txtTimer.text = Math.Round(_timer, 1).ToString();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1);
         }
         TimerEnd();
     }
