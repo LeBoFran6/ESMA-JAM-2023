@@ -58,6 +58,17 @@ public class BP_GameManager : MonoBehaviour
 
     public int action = 0;
 
+    private static BP_GameManager instance;
+
+    public static BP_GameManager Instance { get { return instance; } }
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+            Destroy(gameObject);
+
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -76,10 +87,6 @@ public class BP_GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-
-
         if (timerOn) 
         {
             timer = timer + 1 * Time.deltaTime;

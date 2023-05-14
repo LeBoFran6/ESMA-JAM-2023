@@ -36,9 +36,26 @@ public class SC_FPSController : MonoBehaviour
     [SerializeField,Range(0.05f,3)]
     private float _timeBeforeShot;
 
+    [SerializeField, Range(0.1f, 3)]
+    private float _lagDelay;
+
+    private Vector3 _movementSum;
+
     private bool _fireReady = true;
 
-    
+    private bool _lagResetting = true;
+
+    private enum STATUS {
+        Lag,
+        Dead,
+        Wallhack,
+        RespawnPower,
+        Innof,
+        Neutral
+    }
+
+    [SerializeField]
+    private STATUS _currentStatus;
 
     private CharacterController _characterController;
     private Vector3 _moveDirection = Vector3.zero;
@@ -59,6 +76,7 @@ public class SC_FPSController : MonoBehaviour
 
     void Update()
     {
+
         Fire();
         // We are grounded, so recalculate move direction based on axes
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -87,24 +105,52 @@ public class SC_FPSController : MonoBehaviour
             _moveDirection.y -= _gravity * Time.deltaTime;
         }
 
-        // Move the controller
-        _characterController.Move(_moveDirection * Time.deltaTime);
+        if (_pInput.actions["Power"].WasPressedThisFrame())
+        {
+            if(_currentStatus == STATUS.RespawnPower)
+            {
+                RespawnPower();   
+            }
+        }
+
+        //Debug.Log(BP_GameManager.Instance.P1.transform.position);
+
+        
 
         // Player and Camera rotation
         if (_canMove)
         {
+            ToggleCharacterController(true);
+            if (_currentStatus != STATUS.Lag)
+                // Move the controller
+                _characterController.Move(_moveDirection * Time.deltaTime);
+            else
+                Lag(_moveDirection);
+
             float lookSpeedUpdated = _lookSpeed / 10;
             _rotationX += -_pInput.actions["Look"].ReadValue<Vector2>().y * lookSpeedUpdated;
             _rotationX = Mathf.Clamp(_rotationX, -_lookXLimit, _lookXLimit);
             _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, _pInput.actions["Look"].ReadValue<Vector2>().x * lookSpeedUpdated, 0);
         }
+        else
+        {
+            ToggleCharacterController(false);
+        }
+    }
+
+    private void ToggleCharacterController(bool b)
+    {
+        if (_characterController.enabled == b) return;
+        _characterController.enabled = b;
+        Debug.Log("This is true");
     }
 
     private void Fire()
     {
-        if (!_fireReady)
+        if (!_fireReady || _currentStatus == STATUS.Innof)
             return;
+
         if (_pInput.actions["Fire"].WasPressedThisFrame())
         {
             //Debug.Log("SUUUUUUUUUU");
@@ -147,5 +193,41 @@ public class SC_FPSController : MonoBehaviour
         _fireReady = false;
         yield return new WaitForSeconds(_timeBeforeShot);
         _fireReady = true;
+    }
+
+    private void Lag(Vector3 pos)
+    {
+        if (_lagResetting)
+        {
+            StartCoroutine(LagTimer());
+            _characterController.Move(_movementSum * Time.deltaTime);
+            _movementSum = Vector3.zero;
+            Debug.Log("Lag resetting");
+        }
+
+        _movementSum += pos;
+    }
+
+    private IEnumerator LagTimer()
+    {
+        _lagResetting = false;
+        yield return new WaitForSeconds(_lagDelay);
+        _lagResetting = true;
+    }
+
+    private void RespawnPower()
+    {
+        if (_playerId == 1)
+        {
+            BP_GameManager.Instance.P2.GetComponent<CharacterController>().enabled = false;
+            BP_GameManager.Instance.P2.transform.position = BP_GameManager.Instance.SpawnP2.transform.position;
+            BP_GameManager.Instance.P2.GetComponent<CharacterController>().enabled = true;
+        }
+        else
+        {
+            BP_GameManager.Instance.P1.GetComponent<CharacterController>().enabled = false;
+            BP_GameManager.Instance.P1.transform.position = BP_GameManager.Instance.SpawnP1.transform.position;
+            BP_GameManager.Instance.P1.GetComponent<CharacterController>().enabled = true;
+        }
     }
 }
