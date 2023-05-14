@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1fcf63090bd26e440a9509763c4dc11a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c680e8ea8723fa349a33a8063a08fc45, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -158,7 +158,7 @@ Material:
     - _EdgeAlpha: 0.65671647
     - _EmissionLM: 0.5
     - _EmissionScaleUI: 0
-    - _FlatShading: 0
+    - _FlatShading: 0.503
     - _FrezFalloff: 1.4925374
     - _FrezPow: 1.880597
     - _Gloss: 0.1791045
