@@ -62,6 +62,9 @@ public class BP_GameManager : MonoBehaviour
 
     public static BP_GameManager Instance { get { return instance; } }
 
+    public AudioSource zikPhase1;
+    public AudioSource zikPhase2;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -87,6 +90,17 @@ public class BP_GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Phase1)
+        {
+            zikPhase1.volume = 0;
+            zikPhase2.volume = 0.5f;
+        }
+        else
+        {
+            zikPhase1.volume = 0.5f;
+            zikPhase2.volume = 0;
+        }
+
         if (timerOn) 
         {
             timer = timer + 1 * Time.deltaTime;
@@ -118,7 +132,7 @@ public class BP_GameManager : MonoBehaviour
             BarreDeChargement.transform.localScale = BarreDeChargement.transform.localScale += new Vector3(0f,0f, 1f); 
 
         }
-        if(timer > 5.5) 
+        if(timer > 8) 
         {
             killme.SetActive(false);
             killHim.SetActive(false);
