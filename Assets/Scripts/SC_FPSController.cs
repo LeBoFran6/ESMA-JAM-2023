@@ -39,11 +39,16 @@ public class SC_FPSController : MonoBehaviour
     [SerializeField, Range(0.1f, 3)]
     private float _lagDelay;
 
+    [SerializeField, Range(0.1f, 3)]
+    private float _respawnPowerTime;
+
     private Vector3 _movementSum;
 
     private bool _fireReady = true;
 
     private bool _lagResetting = true;
+
+    private bool _respawnPowerReady = true;
 
     private enum STATUS {
         Lag,
@@ -51,6 +56,7 @@ public class SC_FPSController : MonoBehaviour
         Wallhack,
         RespawnPower,
         Innof,
+        Rotated,
         Neutral
     }
 
@@ -217,6 +223,7 @@ public class SC_FPSController : MonoBehaviour
 
     private void RespawnPower()
     {
+        if (!_respawnPowerReady) return;
         if (_playerId == 1)
         {
             BP_GameManager.Instance.P2.GetComponent<CharacterController>().enabled = false;
@@ -229,5 +236,13 @@ public class SC_FPSController : MonoBehaviour
             BP_GameManager.Instance.P1.transform.position = BP_GameManager.Instance.SpawnP1.transform.position;
             BP_GameManager.Instance.P1.GetComponent<CharacterController>().enabled = true;
         }
+
+    }
+
+    private IEnumerator RespawnPowerCooldown()
+    {
+        _respawnPowerReady = false;
+        yield return new WaitForSeconds(_respawnPowerTime);
+        _respawnPowerReady = true;
     }
 }
