@@ -14,6 +14,14 @@ public class Scores : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _txtTimer;
 
+    public GameObject Win;
+    public GameObject Win2;
+    public GameObject Loose;
+    public GameObject Loose2;
+
+    public GameObject LoseFractur1;
+    public GameObject LoseFractur2;
+
     private static Scores instance;
 
     private int _scoreP1;
@@ -60,7 +68,30 @@ public class Scores : MonoBehaviour
 
     private void TimerEnd()
     {
+        if(_scoreP1 > _scoreP2)
+        {
+            Win.SetActive(true);
+            Loose2.SetActive(true);
 
+            LoseFractur2.SetActive(true);
+        }
+        else if (_scoreP1 < _scoreP2)
+        {
+            Win2.SetActive(true);
+            Loose.SetActive(true);
+
+            LoseFractur1.SetActive(true);
+        }
+        else
+        {
+            Win.SetActive(false);
+            Win2.SetActive(false);
+            Loose.SetActive(false);
+            Loose2.SetActive(false);
+
+            LoseFractur1.SetActive(false);
+            LoseFractur2.SetActive(false);
+        }
     }
 
     public void IncreaseScore(int player)
