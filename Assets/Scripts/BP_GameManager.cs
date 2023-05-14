@@ -139,14 +139,17 @@ public class BP_GameManager : MonoBehaviour
             if(P1Die == true) 
             {
                 ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
-                //ScriptHolderP2.gameObject.GetComponent<SC_FPSController>().canMove = false;
+                P1.GetComponent<CharacterController>().enabled = false;
                 P1.transform.position = SpawnP1.transform.position;
+                P1.GetComponent<CharacterController>().enabled = true;
                 //P2.transform.position = SpawnP2.transform.position;
                 timerOn = true;
                 if(timer > 1) 
                 {
                     ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = false;
+                    P2.GetComponent<CharacterController>().enabled = false;
                     P2.transform.position = SpawnP2.transform.position;
+                    P2.GetComponent<CharacterController>().enabled = true;
                 }
                 if(timer > 2)
                 {
@@ -170,15 +173,17 @@ public class BP_GameManager : MonoBehaviour
 
             if (P2Die == true)
             {
-                //ScriptHolderP1.gameObject.GetComponent<SC_FPSController>().canMove = false;
                 ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = false;
-                //P1.transform.position = SpawnP1.transform.position;
+                P2.GetComponent<CharacterController>().enabled = false;
                 P2.transform.position = SpawnP2.transform.position;
+                P2.GetComponent<CharacterController>().enabled = true;
                 timerOn = true;
                 if(timer > 1)
                 {
                     ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
+                    P1.GetComponent<CharacterController>().enabled = false;
                     P1.transform.position = SpawnP1.transform.position;
+                    P1.GetComponent<CharacterController>().enabled = true;
                 }
                 if (timer > 2)
                 {

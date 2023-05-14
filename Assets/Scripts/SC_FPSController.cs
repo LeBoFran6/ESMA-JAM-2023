@@ -16,7 +16,9 @@ public class SC_FPSController : MonoBehaviour
     [SerializeField]
     private PlayerInput _pInput;
     [SerializeField]
-    //private Animator _animator;
+    private Animator _animator;
+    [SerializeField]
+    private ParticleSystem _particleSystem;
 
     [Header("Values")]
 
@@ -155,7 +157,8 @@ public class SC_FPSController : MonoBehaviour
 
         if (_pInput.actions["Fire"].IsPressed())
         {
-            //_animator.Play("RecoilGun");
+            _animator.Play("GunRecoil");
+            _particleSystem.Play();
             //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = _playerCamera.transform.position;
             Quaternion characterRotation = _playerCamera.transform.rotation;
@@ -184,10 +187,7 @@ public class SC_FPSController : MonoBehaviour
                     Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
                 }
 
-                if (hit.collider.CompareTag("Testing")) // Vérifie si l'objet touché a le tag "Player"
-                {
-                    Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
-                }
+               
             }
             StartCoroutine(ShotCooldown());
         }
