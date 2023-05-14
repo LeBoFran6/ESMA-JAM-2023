@@ -140,7 +140,7 @@ public class BP_GameManager : MonoBehaviour
             {
                 ScriptHolderP1.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                 P1.GetComponent<CharacterController>().enabled = false;
-                P1.transform.position = SpawnP2.transform.position;
+                P1.transform.position = SpawnP1.transform.position;
                 P1.GetComponent<CharacterController>().enabled = true;
                 //P2.transform.position = SpawnP2.transform.position;
                 timerOn = true;

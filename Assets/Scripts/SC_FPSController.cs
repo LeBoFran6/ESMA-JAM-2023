@@ -17,6 +17,8 @@ public class SC_FPSController : MonoBehaviour
     private PlayerInput _pInput;
     [SerializeField]
     private Animator _animator;
+    [SerializeField]
+    private ParticleSystem _particleSystem;
 
     [Header("Values")]
 
@@ -155,8 +157,8 @@ public class SC_FPSController : MonoBehaviour
 
         if (_pInput.actions["Fire"].IsPressed())
         {
-            _animator.Play("New State");
             _animator.Play("GunRecoil");
+            _particleSystem.Play();
             //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = _playerCamera.transform.position;
             Quaternion characterRotation = _playerCamera.transform.rotation;
