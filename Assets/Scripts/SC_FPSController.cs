@@ -17,6 +17,8 @@ public class SC_FPSController : MonoBehaviour
     private Camera _playerCamera;
     [SerializeField]
     private PlayerInput _pInput;
+    [SerializeField]
+    private Animator _animator
 
     [Header("Values")]
 
@@ -190,8 +192,9 @@ public class SC_FPSController : MonoBehaviour
         if (!_fireReady || _currentStatus == STATUS.Innof)
             return;
 
-        if (_pInput.actions["Fire"].WasPressedThisFrame())
+        if (_pInput.actions["Fire"].IsPressed())
         {
+            _animator.Play("RecoilGun");
             //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = _playerCamera.transform.position;
             Quaternion characterRotation = _playerCamera.transform.rotation;
@@ -199,18 +202,18 @@ public class SC_FPSController : MonoBehaviour
             // Crée un rayon depuis le centre du personnage orienté vers l'avant
             Ray ray = new Ray(characterPosition, characterRotation * Vector3.forward);
 
+
             RaycastHit hit;
 
-
-            if (Physics.Raycast(ray, out hit)) // Effectue le raycast et vérifie s'il y a une collision
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
+            if (Physics.Raycast(ray, out hit,1000)) // Effectue le raycast et vérifie s'il y a une collision
             {
-                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
+                //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
                 if (hit.collider.CompareTag("P1")) // Vérifie si l'objet touché a le tag "Player"
                 {
                     _gameManager.P1Die = true;
                     Scores.Instance.IncreaseScore(1);
                     Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
-                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
                 }
 
                 if (hit.collider.CompareTag("P2")) // Vérifie si l'objet touché a le tag "Player"
@@ -218,10 +221,12 @@ public class SC_FPSController : MonoBehaviour
                     _gameManager.P2Die = true;
                     Scores.Instance.IncreaseScore(0);
                     Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
-                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
                 }
 
-
+                if (hit.collider.CompareTag("Testing")) // Vérifie si l'objet touché a le tag "Player"
+                {
+                    Debug.Log("Objet touché : " + hit.collider.gameObject.name); // Affiche le nom de l'objet touché dans la console
+                }
             }
             StartCoroutine(ShotCooldown());
         }
@@ -241,7 +246,6 @@ public class SC_FPSController : MonoBehaviour
             StartCoroutine(LagTimer());
             _characterController.Move(_movementSum * Time.deltaTime);
             _movementSum = Vector3.zero;
-            Debug.Log("Lag resetting");
         }
 
         _movementSum += pos;
