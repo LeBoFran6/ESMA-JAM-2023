@@ -42,6 +42,8 @@ public class SC_FPSController : MonoBehaviour
 
     [SerializeField, Range(0.1f, 3)]
     private float _lagDelay;
+    [SerializeField]
+    private AudioSource _gunFireSound;
 
     private Vector3 _movementSum;
 
@@ -159,6 +161,8 @@ public class SC_FPSController : MonoBehaviour
         {
             _animator.Play("GunRecoil");
             _particleSystem.Play();
+            _gunFireSound.pitch = Random.Range(0.5f, 2);
+            _gunFireSound.Play();
             //Debug.Log("SUUUUUUUUUU");
             Vector3 characterPosition = _playerCamera.transform.position;
             Quaternion characterRotation = _playerCamera.transform.rotation;
