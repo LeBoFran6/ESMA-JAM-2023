@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scores : MonoBehaviour
 {
@@ -92,6 +93,13 @@ public class Scores : MonoBehaviour
             LoseFractur1.SetActive(false);
             LoseFractur2.SetActive(false);
         }
+        StartCoroutine(LoadMenu());
+    }
+
+    private IEnumerator LoadMenu()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(0);
     }
 
     public void IncreaseScore(int player)
