@@ -12209,6 +12209,12 @@ MonoBehaviour:
   _txtScoreP1: {fileID: 0}
   _txtScoreP2: {fileID: 0}
   _txtTimer: {fileID: 0}
+  Win: {fileID: 0}
+  Win2: {fileID: 0}
+  Loose: {fileID: 0}
+  Loose2: {fileID: 0}
+  LoseFractur1: {fileID: 0}
+  LoseFractur2: {fileID: 0}
   _setTime: 0
 --- !u!1001 &1099120402
 PrefabInstance:
