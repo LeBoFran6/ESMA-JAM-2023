@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2963670281314538639}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 5673335583232489349}
   - component: {fileID: 4048285542921242078}
   - component: {fileID: 3811816703378065886}
+  - component: {fileID: 1182923734}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -216,6 +217,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: -0.0000014305116, y: 0, z: 0.0000004768373}
+--- !u!95 &1182923734
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423428917070867175}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 33135e237eee21e45bc23f34aff3ed7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2694089755117313646
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,10 +444,10 @@ GameObject:
   - component: {fileID: 9210579366318506674}
   - component: {fileID: 9210579366318506675}
   - component: {fileID: 9210579366318506676}
-  - component: {fileID: 1813292682605606854}
+  - component: {fileID: 105303367}
   m_Layer: 0
   m_Name: FPSPlayer
-  m_TagString: Untagged
+  m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -437,7 +459,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9210579366318506677}
-  m_LocalRotation: {x: -0, y: 0.9934146, z: -0, w: 0.11457518}
+  m_LocalRotation: {x: 0, y: 0.9934148, z: 0, w: 0.114573}
   m_LocalPosition: {x: 7.5908375, y: 0.0000004951702, z: -4.153789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -465,7 +487,8 @@ MonoBehaviour:
   _gameManager: {fileID: 0}
   _anim: {fileID: 0}
   _playerCamera: {fileID: 9210579366826673605}
-  _pInput: {fileID: 0}
+  _pInput: {fileID: 105303367}
+  _animator: {fileID: 1182923734}
   _canMove: 1
   _playerId: 1
   _walkingSpeed: 7.5
@@ -476,7 +499,7 @@ MonoBehaviour:
   _lookXLimit: 45
   _timeBeforeShot: 0
   _lagDelay: 0
-  _currentStatus: 0
+  _currentStatus: 5
 --- !u!143 &9210579366318506676
 CharacterController:
   m_ObjectHideFlags: 0
@@ -495,7 +518,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1813292682605606854
+--- !u!114 &105303367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -538,7 +561,7 @@ GameObject:
   - component: {fileID: 9210579366455209359}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -586,7 +609,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc043f19ae2b7cf479b7cceaa06da9ee, type: 2}
+  - {fileID: 2100000, guid: 736f2a44840ef934d93623d0737fc825, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -622,7 +645,7 @@ GameObject:
   - component: {fileID: 5812713151140124621}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: P1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
