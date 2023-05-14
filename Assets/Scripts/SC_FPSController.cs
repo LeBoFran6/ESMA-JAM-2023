@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -49,6 +51,8 @@ public class SC_FPSController : MonoBehaviour
     private bool _lagResetting = true;
 
     private bool _respawnPowerReady = true;
+
+    private bool _rotated;
 
     private enum STATUS {
         Lag,
@@ -121,7 +125,13 @@ public class SC_FPSController : MonoBehaviour
 
         //Debug.Log(BP_GameManager.Instance.P1.transform.position);
 
-        
+        if (_currentStatus == STATUS.Rotated)
+        {
+            RotatedCam();
+
+        }
+        else
+            DerotatedCam();
 
         // Player and Camera rotation
         if (_canMove)
@@ -134,22 +144,45 @@ public class SC_FPSController : MonoBehaviour
                 Lag(_moveDirection);
 
             float lookSpeedUpdated = _lookSpeed / 10;
-            _rotationX += -_pInput.actions["Look"].ReadValue<Vector2>().y * lookSpeedUpdated;
+            float rotatedY = _currentStatus == STATUS.Rotated ? -_pInput.actions["Look"].ReadValue<Vector2>().x : -_pInput.actions["Look"].ReadValue<Vector2>().y;
+            _rotationX += rotatedY * lookSpeedUpdated;
             _rotationX = Mathf.Clamp(_rotationX, -_lookXLimit, _lookXLimit);
-            _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, _pInput.actions["Look"].ReadValue<Vector2>().x * lookSpeedUpdated, 0);
+            _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, _playerCamera.transform.localRotation.eulerAngles.z);
+            float rotatedX = _currentStatus == STATUS.Rotated ? -_pInput.actions["Look"].ReadValue<Vector2>().y :_pInput.actions["Look"].ReadValue<Vector2>().x;
+            transform.rotation *= Quaternion.Euler(0, rotatedX * lookSpeedUpdated, 0);
         }
         else
         {
             ToggleCharacterController(false);
         }
     }
+    
+    private void RotatedCam() {
+        if (_rotated) return;
+        _rotated = true;
+        
+        Vector3 euler = _playerCamera.transform.rotation.eulerAngles;
+        ToggleCharacterController(false);
+        _playerCamera.transform.localRotation = Quaternion.Euler(0,0,90);
+        ToggleCharacterController(true);
+
+    }
+
+    private void DerotatedCam()
+    {
+        if (!_rotated) return;
+        _rotated = false;
+        Vector3 euler = _playerCamera.transform.rotation.eulerAngles;
+        ToggleCharacterController(false);
+        _playerCamera.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        ToggleCharacterController(true);
+    }
 
     private void ToggleCharacterController(bool b)
     {
         if (_characterController.enabled == b) return;
         _characterController.enabled = b;
-        Debug.Log("This is true");
+        
     }
 
     private void Fire()
