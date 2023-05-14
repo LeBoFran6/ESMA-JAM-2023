@@ -16,7 +16,7 @@ public class SC_FPSController : MonoBehaviour
     [SerializeField]
     private PlayerInput _pInput;
     [SerializeField]
-    private Animator _animator
+    private Animator _animator;
 
     [Header("Values")]
 
