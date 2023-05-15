@@ -21501,6 +21501,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5812713151140124621, guid: 673a6f6a19b3d7349ba59c07feedd59d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7009779807409346945, guid: 673a6f6a19b3d7349ba59c07feedd59d, type: 3}
       propertyPath: m_Depth
       value: 0
@@ -21576,6 +21580,10 @@ PrefabInstance:
     - target: {fileID: 9210579366455209360, guid: 673a6f6a19b3d7349ba59c07feedd59d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.094
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210579366826673605, guid: 673a6f6a19b3d7349ba59c07feedd59d, type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 673a6f6a19b3d7349ba59c07feedd59d, type: 3}
