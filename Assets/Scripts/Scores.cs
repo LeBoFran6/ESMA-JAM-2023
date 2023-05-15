@@ -65,14 +65,14 @@ public class Scores : MonoBehaviour
                 //_timer = 100;
                 //_txtTimer.text = "Phase 1";
                 LaunchTimer();
-                Debug.Log(_txtTimer.text);
+                //Debug.Log(_txtTimer.text);
                 _doOnce = false;
             }
             else
             {
                 //_txtTimer.text = Math.Round(_timer, 1).ToString();
                 _doOnce = true;
-                Debug.Log(_txtTimer.text);
+                //Debug.Log(_txtTimer.text);
             }
         }
     }

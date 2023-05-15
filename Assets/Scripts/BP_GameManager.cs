@@ -168,6 +168,7 @@ public class BP_GameManager : MonoBehaviour
                 P1.GetComponent<CharacterController>().enabled = false;
                 P1.transform.position = SpawnP1.transform.position;
                 P1.GetComponent<CharacterController>().enabled = true;
+                P2.GetComponentInChildren<Animator>().SetBool("Win 0", true);
                 //P2.transform.position = SpawnP2.transform.position;
                 timerOn = true;
                 if(timer > 1) 
@@ -201,6 +202,7 @@ public class BP_GameManager : MonoBehaviour
             {
                 ScriptHolderP2.gameObject.GetComponent<SC_FPSController>()._canMove = false;
                 P2.GetComponent<CharacterController>().enabled = false;
+                P1.GetComponentInChildren<Animator>().SetBool("Win 0", true);
                 P2.transform.position = SpawnP2.transform.position;
                 P2.GetComponent<CharacterController>().enabled = true;
                 timerOn = true;
@@ -301,6 +303,8 @@ public class BP_GameManager : MonoBehaviour
         _1K.SetActive(false);
         _2L.SetActive(false);
         _2G.SetActive(false);
+        P2.GetComponentInChildren<Animator>().SetBool("Win 0", false);
+        P1.GetComponentInChildren<Animator>().SetBool("Win 0", false);
 
     }
 
